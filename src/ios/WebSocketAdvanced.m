@@ -22,6 +22,9 @@
                                                         cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                         timeoutInterval:timeoutInterval];
 
+    NSArray<NSHTTPCookie *> *cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies;
+    [request setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:cookies]];
+
     for(id key in wsHeaders) {
         [request addValue:[wsHeaders objectForKey:key] forHTTPHeaderField:key];
     }
