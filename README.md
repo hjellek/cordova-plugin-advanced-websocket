@@ -51,6 +51,7 @@ CordovaWebsocketPlugin.wsConnect(options, receiveCallback, successCallback, fail
     - __pingInterval?__: _number_; Ping interval in milliseconds if you want to keep WebSocket open and detect automatically dead WebSocket when Pongs stop returning. If you set it to 0, Pings won't be sent. (optional, defaults to 0)
     - __headers?__: _object_; Object containing custom request headers you want to send when opening WebSocket. Object keys are used as Header names, and values are used as Header values. (optional)
     - __acceptAllCerts?__: _boolean_; Set this to true if you are using secure version of WebSocket (url starts with "wss://") and you want to accept all certificates regardles of their validity. Useful when your WebSocket is using self-signed certificates. (optional, defaults to false)
+    - __useSharedCookies?__: _boolean_; __iOS only__ Set this to true if you are using shared URLSession and need the same cookies to be applied to WebSocket. Adds cookies from `sharedHTTPCookieStorage`.
 - __receiveCallback__: Receive callback function that is invoked with every message received through WebSocket and also when WebSocket is closed.
 - __successCallback__: Success callback function that is invoked with successfull connect to WebSocket.
 - __failureCallback__: Error callback function, invoked when connecting to WebSocket failed for whatever reason.

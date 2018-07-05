@@ -12,6 +12,7 @@
     NSNumber* pingInterval =    [wsOptions valueForKey:@"pingInterval"];
     NSDictionary* wsHeaders =   [wsOptions valueForKey:@"headers"];
     BOOL acceptAllCerts =       [wsOptions valueForKey:@"acceptAllCerts"];
+    BOOL useSharedCookies =     [wsOptions valueForKey:@"useSharedCookies"];
 
     NSTimeInterval timeoutInterval = timeout ? (timeout.doubleValue / 1000) : 0;
     _pingInterval = pingInterval ? (pingInterval.doubleValue / 1000) : 0;
@@ -22,8 +23,10 @@
                                                         cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                         timeoutInterval:timeoutInterval];
 
-    NSArray<NSHTTPCookie *> *cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies;
-    [request setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:cookies]];
+    if(useSharedCookies) {
+        NSArray<NSHTTPCookie *> *cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies;
+        [request setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:cookies]];
+    }
 
     for(id key in wsHeaders) {
         [request addValue:[wsHeaders objectForKey:key] forHTTPHeaderField:key];
